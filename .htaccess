@@ -1,0 +1,33 @@
+# ============================================================
+# Proteksi root project SIn-FTIK (CodeIgniter 4)
+# Ditambahkan 2026-11-11 setelah audit keamanan.
+#
+# Root project ini berada di dalam htdocs, jadi tanpa file ini
+# file sensitif (.env, .git, *.sql, dll) bisa diunduh via web.
+# File ini HANYA memblokir akses web ke file/folder sensitif.
+# Aplikasi di folder public/ tetap bisa diakses seperti biasa,
+# dan pemuatan file oleh PHP (filesystem) tidak terpengaruh.
+# ============================================================
+
+# Matikan daftar isi folder (directory listing) di semua folder
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Folder yang tidak pernah boleh diakses lewat web
+    RewriteRule ^(vendor|tests)(/|$) - [F,L]
+    RewriteRule (^|/)\.git(/|$) - [F,L]
+    RewriteRule (^|/)\.env$ - [F,L]
+</IfModule>
+
+# File sensitif berdasarkan nama / ekstensi
+<FilesMatch "(^\.env$|^env$|^\.gitignore$|^composer\.(json|lock)$|^spark$|\.sql$|\.md$)">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order Allow,Deny
+        Deny from all
+    </IfModule>
+</FilesMatch>

@@ -1,0 +1,44 @@
+# ============================================================
+# .gitignore — SIn-FTIK (CodeIgniter 4)
+# Tujuan: nanti cukup "git add ." sekali, file yang benar masuk
+# repo, file rahasia/sampah otomatis tertinggal. (Dirapikan 2026-11-11)
+# ============================================================
+
+# --- RAHASIA: kredensial asli, JANGAN PERNAH ke GitHub ---
+.env
+.env.*
+
+# --- Dependency Composer (diinstall ulang pakai: composer install) ---
+vendor/
+
+# --- Folder writable: isinya cache/log/sesi hasil jalan aplikasi ---
+writable/cache/*
+!writable/cache/index.html
+writable/logs/*
+!writable/logs/index.html
+writable/session/*
+!writable/session/index.html
+writable/uploads/*
+!writable/uploads/index.html
+writable/debugbar/*
+!writable/debugbar/index.html
+
+# --- File hasil upload pengguna (foto barang, modul, dll) ---
+public/uploads/*
+!public/uploads/index.html
+!public/uploads/.htaccess
+
+# --- File sisa kerja di root project (tidak ikut repo) ---
+/*.sql
+/*.zip
+/*.log
+
+# --- Editor & sistem operasi ---
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- Hasil tes ---
+.phpunit.result.cache
